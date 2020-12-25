@@ -1,6 +1,7 @@
 //name, email, password, profileId
 
 const {Schema, model} = require('mongoose')
+const {Profile} = require('./Models')
 
 const userSchema = new Schema({
         name: {
@@ -19,7 +20,7 @@ const userSchema = new Schema({
         },
         profile: {
             type: Schema.Types.ObjectId,
-            ref: 'Profile'
+            ref: Profile
         }
     },{timeStamp: true})
 
