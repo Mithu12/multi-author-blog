@@ -34,7 +34,7 @@ app.set('views', 'views')
 mongoose.connect('mongodb://localhost:27017/multi_user_blog', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         app.listen(PORT, () => {
-            console.log(`server running at current port: ${PORT}`)
+            console.log(`server running at current port: ${PORT} \n`)
         })
     })
     .catch(e => {

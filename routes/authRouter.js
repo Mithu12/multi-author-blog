@@ -16,7 +16,7 @@ router.get('/login', login)
 router.post('/login', postLogin)
 
 
-router.get('logout', logout)
+router.get('/logout', logout)
 
 
 module.exports = router
