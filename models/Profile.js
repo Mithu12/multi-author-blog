@@ -1,12 +1,18 @@
 // user, title, bio, profilePic, posts, bookmarks, links{fb, twitter, ...}
 
 const {Schema, model} = require('mongoose')
-const {Post, User} = require('./Models')
+// const {Post, User} = require('./Models')
+const {Post, User} = {Post:'Post', User:'User'}
 const profileSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: User,
         required: true
+    },
+    name: {
+        type: String,
+        required: true,
+        trim: true
     },
     title: {
         type: String,

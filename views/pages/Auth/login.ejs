@@ -1,0 +1,58 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="container">
+    <div class="bg-light">
+        <form action="/login" method="post">
+            <div class="row">
+
+
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                    </div>
+                </div>
+                <div class="col-4"></div>
+
+
+
+
+
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                </div>
+                <div class="col-4"></div>
+
+
+
+
+
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <div class="col-4 m-3">
+                    <a href="/signup" class="">Dont have an account? signup</a>
+                </div>
+                <div class="col-4"></div>
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+</html>

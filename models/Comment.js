@@ -1,6 +1,7 @@
 // post, user, body, replies
 const {Schema, model} = require('mongoose')
 const {Post, User} = require('./Models')
+// const {Post, User} = {Post:'Post', User:'User'}
 
 const commentSchema = new Schema({
     post: {

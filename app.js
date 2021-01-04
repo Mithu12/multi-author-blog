@@ -1,10 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
-// const Router = require('./routes/Routes')
+const Router = require('./routes/Routes')
 
 const app = express()
 const PORT = process.env.PORT || 8000
+
+// ======================================== routes
+
+
 
 // ========================================middle wares
 const middleWares = [
@@ -14,10 +18,13 @@ const middleWares = [
     express.json()
 ]
 
-app.get('/', (req, res) => {
-    res.send('<h1>Welcome</h1>')
-})
+
 app.use(middleWares)
+app.use(Router)
+app.get('/', (req, res) => {
+    res.render('pages/Home/home', {title: 'create account'})
+})
+
 
 // ===================================setup view engine
 app.set('view engine', 'ejs')

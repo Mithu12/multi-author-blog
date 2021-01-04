@@ -1,0 +1,11 @@
+html,body{
+    font-family: sans-serif;
+    background: rgb(245,245,245);
+    font-size: 16px;
+}
+footer, footer p{
+    background: #222;
+    color: #fff;
+    padding: 10px 0;
+    margin: 0 !important;
+}
