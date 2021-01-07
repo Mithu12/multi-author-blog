@@ -1,11 +1,22 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
+const {validationResult} =require('express-validator')
+const errorFormatter = require('../utils/validationErrorFormatter')
+
 exports.signup = (req, res, next) => {
     res.render('pages/Auth/signup', {title: 'create account'})
 }
 exports.postSignup = async (req, res, next) => {
-    const {email, userName, password, confirmPassword} = req.body
+
+    let errors = validationResult(req).formatWith(errorFormatter)
+
+    if (!errors.isEmpty())
+    {
+        return console.log(errors.mapped())
+    }
+
+    const {email, userName, password} = req.body
 
     try {
         let hashPass = await bcrypt.hash(password, 11)
