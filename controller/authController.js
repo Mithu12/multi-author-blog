@@ -1,22 +1,34 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
-const {validationResult} =require('express-validator')
+const {validationResult} = require('express-validator')
 const errorFormatter = require('../utils/validationErrorFormatter')
 
 exports.signup = (req, res, next) => {
-    res.render('pages/Auth/signup', {title: 'create account'})
+
+    console.log(req.session.isLogged)
+    console.log(req.session.user)
+
+
+    res.render('pages/Auth/signup', {title: 'create account', errors: {}, values: {}})
 }
+
+
 exports.postSignup = async (req, res, next) => {
 
     let errors = validationResult(req).formatWith(errorFormatter)
-
-    if (!errors.isEmpty())
-    {
-        return console.log(errors.mapped())
+    const {email, userName, password} = req.body
+    if (!errors.isEmpty()) {
+        // console.log(errors.mapped())
+        return res.render('pages/Auth/signup', {
+            title: 'create account',
+            errors: errors.mapped(),
+            values: {
+                email, userName, password
+            }
+        })
     }
 
-    const {email, userName, password} = req.body
 
     try {
         let hashPass = await bcrypt.hash(password, 11)
@@ -33,37 +45,55 @@ exports.postSignup = async (req, res, next) => {
     }
 
 
-    res.render('pages/Auth/signup', {title: 'create account'})
+    res.render('pages/Auth/signup', {title: 'create account', errors: "User added Successfully", values: {}})
 
 }
-
 
 
 exports.login = (req, res, next) => {
-    res.render('pages/Auth/login', {title: 'login'})
+
+    console.log(req.session.isLogged)
+    console.log(req.session.user)
+
+    res.render('pages/Auth/login', {title: 'login', errors: {}, values: {}})
 }
 
 
-
 exports.postLogin = async (req, res, next) => {
-    const {email, password, } = req.body
+    const {email, password,} = req.body
+
+    let errors = validationResult(req).formatWith(errorFormatter)
+    if (!errors.isEmpty()) {
+        console.log(errors.mapped())
+        return res.render('pages/Auth/login',
+            {
+                title: 'login',
+                errors: errors.mapped(),
+                values: {email, password}
+
+            }
+        )
+    }
 
     try {
         let user = await User.findOne({email})
-        if(!user){
+        if (!user) {
             return res.json({
                 message: 'invalid email or password'
             })
         }
         let matched = await bcrypt.compare(password, user.password)
-        if(!matched){
+        if (!matched) {
             return res.json({
                 message: 'invalid email or password'
             })
         }
 
-        console.log('login successful', user)
-        res.render('pages/Auth/login', {title: 'login'})
+        req.session.isLogged = true
+        req.session.user = user
+
+
+        res.render('pages/Auth/login', {title: 'login', errors: {}, values: {}})
     } catch (e) {
         console.log(e)
         next(e)

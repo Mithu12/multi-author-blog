@@ -10,27 +10,38 @@
                 <div class="col-4">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 
+                        <input type="email" name="email"
+                               class="form-control <%= errors.email ? 'is-invalid' : '' %>"
+                               value="<%= values.email ? values.email : '' %>"
+
+                               id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        <div id="emailHelp" class="invalid-feedback">
+                            <%= errors.email %>
+                        </div>
                     </div>
                 </div>
                 <div class="col-4"></div>
-
-
-
 
 
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                        <input type="password" name="password"
+                               value="<%= values.password ? values.password : '' %>"
+                               class="form-control <%= errors.password ? 'is-invalid' : '' %>"
+                               id="exampleInputPassword1">
+
+                        <div  class="invalid-feedback">
+                            asd
+                            <%= errors.password %>
+                        </div>
                     </div>
+
                 </div>
                 <div class="col-4"></div>
-
-
-
 
 
                 <div class="col-4"></div>

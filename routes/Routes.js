@@ -3,7 +3,7 @@ const authRoutes = require('./authRouter')
 
 
 
-const validatorTestRoutes = require('../Test/Validator')
+const validatorTestRoutes = require('../Test/Auth/Validator')
 
 
 module.exports = [
