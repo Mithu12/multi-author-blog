@@ -39,21 +39,17 @@ exports.postSignup = async (req, res, next) => {
         })
         let createdUser = await user.save()
         console.log('User Created Successfully', createdUser)
+        res.redirect('/login')
     } catch (e) {
         console.log(e)
         next(e)
     }
 
 
-    res.render('pages/Auth/signup', {title: 'create account', errors: "User added Successfully", values: {}})
-
 }
 
 
 exports.login = (req, res, next) => {
-
-    console.log(req.session.isLogged)
-    console.log(req.session.user)
 
     res.render('pages/Auth/login', {title: 'login', errors: {}, values: {}})
 }
@@ -91,9 +87,15 @@ exports.postLogin = async (req, res, next) => {
 
         req.session.isLogged = true
         req.session.user = user
+        req.session.save(err=>{
+            if (err)
+            {
+                console.log(err)
+                return next(err)
+            }
+            return res.redirect('/dashboard')
+        })
 
-
-        res.render('pages/Auth/login', {title: 'login', errors: {}, values: {}})
     } catch (e) {
         console.log(e)
         next(e)
@@ -102,5 +104,11 @@ exports.postLogin = async (req, res, next) => {
 
 
 exports.logout = (req, res, next) => {
-
+    req.session.destroy(err=>{
+        if (err){
+            console.log(err)
+            return next(err)
+        }
+        return res.redirect('/login')
+    })
 }

@@ -23,3 +23,8 @@ exports.isAuthenticated = (req, res, next) => {
         return res.redirect('/login')
     next()
 }
+exports.isLoggedIn = (req, res, next) => {
+    if (req.session.isLogged)
+        return res.redirect('/dashboard')
+    next()
+}
