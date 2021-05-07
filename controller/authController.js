@@ -41,11 +41,9 @@ exports.postSignup = async (req, res, next) => {
             password: hashPass,
             email
         })
-        let createdUser = await user.save()
-        console.log('User Created Successfully', createdUser)
+        await user.save()
         res.redirect('/login')
     } catch (e) {
-        console.log(e)
         next(e)
     }
 
