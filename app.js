@@ -14,8 +14,8 @@ const setLocals = require('./middleware/setLocals')
 const config = require('config');
 
 const app = express()
-const PORT = process.env.PORT || 8000
-const DBUrl = `mongodb://${process.env.DB_NAME}:${process.env.DB_PASSWORD}/multi_user_blog`
+const PORT = config.get('port')
+const DBUrl = `mongodb://${config.get('db_username')}:${config.get('db_password')}/multi_user_blog`
 
 
 // ======================================== session
@@ -25,7 +25,6 @@ const store = new MongoDBStore({
     collection: 'sessions'
 });
 
-
 // ========================================middle wares
 const middleWares = [
     morgan('dev'),
@@ -33,7 +32,7 @@ const middleWares = [
     express.urlencoded({extended: true}),
     express.json(),
     session({
-        secret: process.env.SECRET_KEY || "SECRET_KEY",
+        secret: config.get('secret'),
         resave: false,
         saveUninitialized: false,
         store: store,
