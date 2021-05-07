@@ -1,5 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
+const Router = require('./routes/Routes')
+
+//================================ middleware
 const morgan = require('morgan')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -7,10 +11,11 @@ const flash = require('connect-flash');
 //============================== custom middlewares
 const {bindUserWithRequest} = require('./middleware/authMiddleware')
 const setLocals = require('./middleware/setLocals')
+const config = require('config');
 
 const app = express()
 const PORT = process.env.PORT || 8000
-const DBUrl = 'mongodb://localhost:27017/multi_user_blog'
+const DBUrl = `mongodb://${process.env.DB_NAME}:${process.env.DB_PASSWORD}/multi_user_blog`
 
 
 // ======================================== session
@@ -37,6 +42,8 @@ const middleWares = [
     setLocals(),
     flash()
 ]
+// ========================================= config
+console.log(config)
 
 
 app.use(middleWares)
