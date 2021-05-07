@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <% if(message.error){%>
+                <div class="alert alert-danger" role="alert">
+                    <%= message.error[0] %>
+                </div>
+            <% }else if(message.success){%>
+                <div class="alert alert-success" role="alert">
+                    <%= message.success[0] %>
+                </div>
+            <% }%>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>

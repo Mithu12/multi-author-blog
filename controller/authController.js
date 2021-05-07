@@ -6,11 +6,13 @@ const errorFormatter = require('../utils/validationErrorFormatter')
 
 exports.signup = (req, res, next) => {
 
-    console.log(req.session.isLogged)
-    console.log(req.session.user)
 
-
-    res.render('pages/Auth/signup', {title: 'create account', errors: {}, values: {}})
+    res.render('pages/Auth/signup', {
+        title: 'create account',
+        errors: {},
+        values: {},
+        message: req.flash()
+    })
 }
 
 
@@ -20,12 +22,14 @@ exports.postSignup = async (req, res, next) => {
     const {email, userName, password} = req.body
     if (!errors.isEmpty()) {
         // console.log(errors.mapped())
+        req.flash('error', 'fill up all the field')
         return res.render('pages/Auth/signup', {
             title: 'create account',
             errors: errors.mapped(),
             values: {
                 email, userName, password
-            }
+            },
+            message: req.flash()
         })
     }
 
@@ -51,7 +55,7 @@ exports.postSignup = async (req, res, next) => {
 
 exports.login = (req, res, next) => {
 
-    res.render('pages/Auth/login', {title: 'login', errors: {}, values: {}})
+    res.render('pages/Auth/login', {title: 'login', errors: {}, values: {}, message: req.flash()})
 }
 
 
@@ -65,8 +69,8 @@ exports.postLogin = async (req, res, next) => {
             {
                 title: 'login',
                 errors: errors.mapped(),
-                values: {email, password}
-
+                values: {email, password},
+                message: req.flash()
             }
         )
     }
