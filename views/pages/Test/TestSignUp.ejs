@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="bg-light">
-        <form action="/validator" method="post">
+        <form action="/validator" method="post" enctype="multipart/form-data">
             <div class="row">
 
 
@@ -43,6 +43,16 @@
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
                         <input type="password" name="confirmPassword" class="form-control" id="exampleInputPassword1">
+                    </div>
+                </div>
+                <div class="col-4"></div>
+
+
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Image</label>
+                        <input type="file" name="testFile" class="form-control" >
                     </div>
                 </div>
                 <div class="col-4"></div>

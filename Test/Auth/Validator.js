@@ -1,5 +1,5 @@
 const router = require('express').Router()
-
+const uploader = require('../../middleware/ImageUploadMiddleware')
 const {check, validationResult} = require('express-validator')
 
 router.get('/validator', (req, res, next) => {
@@ -12,44 +12,18 @@ router.get('/validator', (req, res, next) => {
 })
 
 
-router.post('/validator', [
-    check('userName')
-        .not()
-        .isEmpty()
-        .withMessage('Please provide user name ')
-        .isLength({max: 15})
-        .withMessage('Maximum allowed character 15')
-        .trim(),
-
-    check('email')
-        .isEmail()
-        .withMessage('Enter A valid Email')
-        .normalizeEmail(),
-
-    check('password')
-        .custom((pass) => {
-            if (pass.length < 8) {
-                throw new Error('password must be 8 characters long')
-            }
-            return true
-        }),
-
-    check('confirmPassword')
-        .custom((confPass, {req}) => {
-            if (confPass !== req.body.password) {
-                throw new Error('password did not match')
-            }
-            return true
-        })
-], (req, res, next) => {
+router.post('/validator',uploader.single('testFile'), (req, res, next) => {
 
     let errors = validationResult(req)
 
     if (!errors.isEmpty()){
         req.flash('error', 'failed')
     }else {
-        req.flash('success', 'succeed')
+        if (req.file)
+            req.flash('success', 'image added')
+            req.flash('success', 'succeed')
     }
+
 
     // const errorFormatter = (error) => error.msg
     //
